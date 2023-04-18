@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Лучшие посты</title>
+</head>
+<body>
+    <ul>
+        <h1>Лучшие посты:</h1>
+        {% for post in posts %}
+        <li>
+            <h2>
+                <a href="{% url 'posts:post-detail' post_pk=post.pk %}">
+                    {{post.name}}
+                </a>
+            </h2>
+            <p>{{post.author}}</p>
+            <p>{{post.description}}</p>
+            <p>Лайки: {{post.count_of_likes}}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

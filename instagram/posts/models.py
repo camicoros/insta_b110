@@ -46,6 +46,10 @@ class Post(models.Model):
     def __str__(self):
         return f"Пост {self.pk} от {self.author}"
 
+    @property
+    def count_of_likes(self):
+        return self.likes.count()
+
 
 class Comment(models.Model):
     text = models.TextField('текст комментария', max_length=250)
