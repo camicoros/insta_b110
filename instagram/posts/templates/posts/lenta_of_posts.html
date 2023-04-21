@@ -18,8 +18,13 @@
                 <p>{{post.author}}</p>
                 <p>{{post.description}}</p>
                 <p>Лайки: {{post.count_of_likes}}</p>
+                {% if request.user in post.likes.all %}
+                    <a href="{% url 'posts:like' post.pk %}">💩</a>
+                {% else %}
+                    <a href="{% url 'posts:like' post.pk %}">🧁</a>
+                {% endif %}
             </li>
-            {% endfor %}
+        {% endfor %}
         {% else %}
             <h2>Посты друзей не найдены 🤔</h2>
         {% endif %}

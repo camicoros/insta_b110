@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{post.name}}</title>
+</head>
+<body>
+    <h1>{{post.name}}</h1>
+    {% if request.user.is_authenticated and request.user == post.author %}
+        <a href="{% url 'posts:post-update' post.pk %}">✏</a>
+        <a href="{% url 'posts:post-delete' post.pk %}">❌</a>
+    {% endif %}
+    <p>{{post.author}}</p>
+    <p>{{post.description}}</p>
+    <p>Лайки: {{post.count_of_likes}}</p>
+    {% if request.user in post.likes.all %}
+        <a href="{% url 'posts:like' post.pk %}">💩</a>
+    {% else %}
+        <a href="{% url 'posts:like' post.pk %}">🧁</a>
+    {% endif %}
+    <img src="{{ post.image.url }}" alt="{{post.name}}">
+</body>
+</html>
