@@ -5,6 +5,12 @@
     <title>Лучшие посты</title>
 </head>
 <body>
+    {% if user.is_authenticated %}
+        <form action="{% url 'users:logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Выйти</button>
+        </form>
+    {% endif %}
     <ul>
         <h1>Лучшие посты:</h1>
         {% for post in posts %}

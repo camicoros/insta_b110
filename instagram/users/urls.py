@@ -1,9 +1,12 @@
-from django.urls import path, re_path
+from django.urls import path
 
-from .views import about, about_detail, my_date
+from .views import CustomLoginView, CustomLogoutView, SignupView
+
+
+app_name = 'users'
 
 urlpatterns = [
-    path('about/', about),
-    path('about/<int:user_id>/', about_detail),
-    re_path(r'^my-date/(?P<selected_date>\d{4}-\d{2}-\d{2})/$', my_date)
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
+    path('signup/', SignupView.as_view(), name='signup'),
 ]
