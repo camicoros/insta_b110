@@ -6,10 +6,12 @@
 </head>
 <body>
     {% if user.is_authenticated %}
+        <a href="{% url 'users:profile' user.id %}">Мой профиль</a>
         <form action="{% url 'users:logout' %}" method="post">
             {% csrf_token %}
             <button type="submit">Выйти</button>
         </form>
+        <a href="{% url 'posts:post-create' %}">Создать пост</a>
     {% endif %}
     <ul>
         <h1>Лучшие посты:</h1>
@@ -24,7 +26,7 @@
                 <a href="{% url 'posts:post-update' post.pk %}">✏</a>
                 <a href="{% url 'posts:post-delete' post.pk %}">❌</a>
             {% endif %}
-            <p>{{post.author}}</p>
+            <a href="{% url 'users:profile' post.author.id %}">{{post.author}}</a>
             <p>{{post.description}}</p>
             <p>Лайки: {{post.count_of_likes}}</p>
             {% if request.user in post.likes.all %}

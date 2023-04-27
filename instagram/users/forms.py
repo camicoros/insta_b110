@@ -24,3 +24,23 @@ class SignupForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ("username", "avatar", "about")
+
+
+class UserEditForm(forms.ModelForm):
+    birth_date = forms.DateField(
+        label="Дата рождения",
+        widget=forms.DateInput(
+            attrs={
+                'type': 'date',
+            }
+        )
+    )
+
+    class Meta:
+        model = CustomUser
+        fields = (
+            'first_name', 'last_name',
+            'email', 'phone_number',
+            'birth_date', 'about',
+            'avatar'
+        )

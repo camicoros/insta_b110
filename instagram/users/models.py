@@ -8,6 +8,7 @@ class CustomUser(AbstractUser):
     about = models.TextField(max_length=1000, blank=True)
     avatar = models.ImageField(upload_to='users')
     phone_number = models.CharField(max_length=11, blank=True)
+    my_friends = models.ManyToManyField('self', through='Friendship', blank=True)
 
     class Meta:
         verbose_name = 'Пользователь'
@@ -29,6 +30,7 @@ class Friendship(models.Model):
         on_delete=models.CASCADE,
         related_name='target_friends'
     )
+    is_accepted = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Друг'
