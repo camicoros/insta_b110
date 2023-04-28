@@ -1,41 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Лучшие посты</title>
-</head>
-<body>
-    {% if user.is_authenticated %}
-        <a href="{% url 'users:profile' user.id %}">Мой профиль</a>
-        <form action="{% url 'users:logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Выйти</button>
-        </form>
-        <a href="{% url 'posts:post-create' %}">Создать пост</a>
-    {% endif %}
-    <ul>
-        <h1>Лучшие посты:</h1>
-        {% for post in posts %}
-        <li>
-            <h2>
-                <a href="{% url 'posts:post-detail' post_pk=post.pk %}">
-                    {{post.name}}
-                </a>
-            </h2>
-            {% if request.user.is_authenticated and request.user == post.author %}
-                <a href="{% url 'posts:post-update' post.pk %}">✏</a>
-                <a href="{% url 'posts:post-delete' post.pk %}">❌</a>
-            {% endif %}
-            <a href="{% url 'users:profile' post.author.id %}">{{post.author}}</a>
-            <p>{{post.description}}</p>
-            <p>Лайки: {{post.count_of_likes}}</p>
-            {% if request.user in post.likes.all %}
-                <a href="{% url 'posts:like' post.pk %}">💩</a>
-            {% else %}
-                <a href="{% url 'posts:like' post.pk %}">🧁</a>
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+    Лучшие посты
+{% endblock title %}
+
+{% block content %}
+<ul>
+    <h1>Лучшие посты:</h1>
+    {% for post in posts %}
+    <li>
+        <h2>
+            <a href="{% url 'posts:post-detail' post_pk=post.pk %}">
+                {{post.name}}
+            </a>
+        </h2>
+        {% if request.user.is_authenticated and request.user == post.author %}
+        <a href="{% url 'posts:post-update' post.pk %}">✏</a>
+        <a href="{% url 'posts:post-delete' post.pk %}">❌</a>
+        {% endif %}
+        <a href="{% url 'users:profile' post.author.id %}">{{post.author}}</a>
+        <p>{{post.description}}</p>
+        <p>Лайки: {{post.count_of_likes}}</p>
+        {% if request.user in post.likes.all %}
+        <a href="{% url 'posts:like' post.pk %}">💩</a>
+        {% else %}
+        <a href="{% url 'posts:like' post.pk %}">🧁</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}

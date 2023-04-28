@@ -32,8 +32,8 @@ class Post(models.Model):
         max_length=1000,
         blank=True
     )
-    pub_date = models.DateTimeField('дата публикации', default=now)
-    edit_date = models.DateTimeField('дата редактирования', default=now)
+    pub_date = models.DateTimeField('дата публикации', auto_now_add=True)
+    edit_date = models.DateTimeField('дата редактирования', auto_now=True)
     timezone = models.CharField('часовой пояс', default='Europe/Samara', max_length=50)
     location = models.CharField('место съёмки', default='Тольятти', max_length=50)
     likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
