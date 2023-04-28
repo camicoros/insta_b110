@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-^4z82yvd)^%mq*vht)@*mc$mh=1*w_g7&&jhn+v6b)yoc-o)=&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['camicoros.pythonanywhere.com']
 
 
 AUTH_USER_MODEL = 'users.CustomUser'
